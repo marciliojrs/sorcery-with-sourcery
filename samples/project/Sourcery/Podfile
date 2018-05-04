@@ -1,0 +1,6 @@
+target 'Sourcery' do  
+  use_frameworks!
+
+  pod 'Sourcery', '~> 0.13'
+
+end

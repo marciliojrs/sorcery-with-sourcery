@@ -1,0 +1,21 @@
+{% for enum in types.enums %}
+extension {{ enum.name }} {
+    static var allCases: [{{enum.name}}] = [
+    {% for case in enum.cases %}
+      .{{ case.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    ]
+}
+{% endfor %}
+
+
+{% for struct in types.structs %}
+extension {{struct.name}}: Equatable {
+    {{struct.accessLevel}} static func == (lhs: {{struct.name}}, rhs: {{struct.name}}) -> Bool {
+        {% for var in struct.variables %}
+        guard lhs.{{var.name}} == rhs.{{var.name}} else { return false }
+        {% endfor %}
+        return true
+    }
+}
+{% endfor %}
